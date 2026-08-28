@@ -38,3 +38,16 @@ Each clip lasts only four seconds and can be played only once.
 
 Recommended win condition: 4 out of 5 correct.
 Extreme win condition: all 5 correct.
+
+
+SHUFFLE SABOTAGE
+Five 6-second instrumental Shuffle clips have been added.
+
+Play one after each main round. The first team to name the song chooses another team to lose 1 point. Use the Shuffle penalty button beneath that team's score. A wrong guess locks that team out; if nobody answers correctly, nobody loses a point.
+
+Songs:
+1. Murder on the Dancefloor — Sophie Ellis-Bextor
+2. Promiscuous — Nelly Furtado feat. Timbaland
+3. Sweet Dreams (Are Made of This) — Eurythmics
+4. Ride Wit Me — Nelly
+5. The Sweet Escape — Gwen Stefani feat. Akon
