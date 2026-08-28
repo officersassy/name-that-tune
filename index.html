@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>OneState RP | PD Name That Tune</title>
+<style>
+:root{
+  --bg:#07111d; --panel:#0d1b2a; --panel2:#10253a; --line:#24445f;
+  --text:#f4f7fb; --muted:#9fb1c3; --blue:#53b7ff; --gold:#ffc857;
+  --green:#67e8a5; --red:#ff6b6b;
+}
+*{box-sizing:border-box}
+body{
+  margin:0; min-height:100vh; color:var(--text);
+  font-family:Inter,Segoe UI,Arial,sans-serif;
+  background:
+    radial-gradient(circle at 12% 10%,rgba(83,183,255,.13),transparent 28%),
+    radial-gradient(circle at 90% 90%,rgba(255,200,87,.08),transparent 28%),
+    linear-gradient(135deg,#040a11,#07111d 45%,#091725);
+}
+button,select,input{font:inherit}
+button{cursor:pointer}
+.topbar{
+  display:flex; align-items:center; justify-content:space-between; gap:16px;
+  padding:14px 20px; border-bottom:1px solid var(--line);
+  background:rgba(4,10,17,.88); position:sticky; top:0; z-index:20;
+  backdrop-filter:blur(10px);
+}
+.brand{display:flex;gap:12px;align-items:center}
+.badge{
+  width:46px;height:46px;border-radius:50%;display:grid;place-items:center;
+  border:2px solid var(--gold);color:var(--gold);font-weight:900;
+  box-shadow:0 0 22px rgba(255,200,87,.15);
+}
+h1{font-size:20px;margin:0;letter-spacing:.04em}
+.sub{font-size:12px;color:var(--muted);margin-top:3px}
+.status{
+  padding:8px 12px;border:1px solid var(--line);border-radius:999px;
+  color:var(--green);font-size:13px;background:#081521
+}
+.app{display:grid;grid-template-columns:260px minmax(0,1fr) 300px;gap:16px;padding:16px;max-width:1500px;margin:auto}
+.panel{
+  background:linear-gradient(180deg,rgba(16,37,58,.93),rgba(9,25,40,.94));
+  border:1px solid var(--line);border-radius:18px;box-shadow:0 18px 55px rgba(0,0,0,.28)
+}
+.sidebar{padding:14px;height:max-content}
+.section-title{font-size:12px;text-transform:uppercase;letter-spacing:.14em;color:var(--muted);margin:4px 4px 10px}
+.roundBtn{
+  width:100%;text-align:left;border:1px solid transparent;background:transparent;color:var(--text);
+  padding:12px;border-radius:12px;margin:4px 0
+}
+.roundBtn:hover{background:#102b43}
+.roundBtn.active{background:#15344f;border-color:#2d638d;color:#fff}
+.roundBtn small{display:block;color:var(--muted);margin-top:3px}
+.main{padding:22px;min-height:650px}
+.round-kicker{color:var(--blue);font-weight:800;letter-spacing:.12em;text-transform:uppercase;font-size:12px}
+.round-title{font-size:34px;margin:6px 0 6px}
+.round-desc{color:var(--muted);margin:0 0 18px}
+.progress{height:7px;background:#07111d;border-radius:999px;overflow:hidden;margin:18px 0}
+.progress>div{height:100%;background:linear-gradient(90deg,var(--blue),var(--gold));transition:.25s}
+.question-card{
+  border:1px solid var(--line);border-radius:18px;padding:24px;background:rgba(5,17,29,.58);
+  min-height:360px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center
+}
+.qnum{color:var(--muted);font-size:13px}
+.big{font-size:64px;font-weight:900;margin:6px 0;color:var(--gold);text-shadow:0 0 30px rgba(255,200,87,.15)}
+.hint{color:var(--muted);max-width:620px}
+.controls{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:22px}
+.btn{
+  border:1px solid var(--line);background:#10253a;color:#fff;padding:11px 16px;border-radius:12px;font-weight:800
+}
+.btn:hover{transform:translateY(-1px);border-color:#3d749f}
+.btn.primary{background:#12629a;border-color:#2788c9}
+.btn.gold{background:#8b6110;border-color:#c69432}
+.btn.red{background:#7d2525;border-color:#a63c3c}
+.answer{
+  display:none;margin-top:18px;padding:16px 20px;border:1px solid #446f4f;background:#0d2b20;border-radius:14px;
+  width:min(650px,100%)
+}
+.answer.show{display:block}
+.answer strong{color:var(--green);font-size:22px}
+.timer{font-size:32px;font-weight:900;margin-top:15px;min-height:40px}
+.timer.playing{color:var(--gold)}
+.score{padding:14px;height:max-content}
+.team{padding:12px;border:1px solid var(--line);border-radius:14px;margin-bottom:10px;background:#091a29}
+.teamName{display:flex;gap:8px;align-items:center}
+.teamName input{width:100%;background:transparent;border:0;border-bottom:1px solid #294965;color:#fff;padding:5px;outline:none;font-weight:800}
+.points{font-size:34px;font-weight:900;text-align:center;margin:10px 0}
+.scoreBtns{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.scoreBtns button{padding:8px;border-radius:9px;border:1px solid var(--line);background:#10253a;color:#fff}
+.rules{font-size:13px;color:var(--muted);line-height:1.55;border-top:1px solid var(--line);padding-top:12px;margin-top:12px}
+.footer{text-align:center;color:#668097;font-size:11px;padding:4px 16px 20px}
+.clipnote{font-size:12px;color:#7893aa;margin-top:12px}
+#audioBay{position:fixed;width:1px;height:1px;overflow:hidden;left:-100px;top:-100px;opacity:.01;pointer-events:none}
+@media(max-width:980px){
+  .app{grid-template-columns:1fr}
+  .sidebar{display:grid;grid-template-columns:repeat(2,1fr);gap:5px}
+  .section-title{grid-column:1/-1}
+  .score{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+  .team{margin:0}
+  .rules{grid-column:1/-1}
+}
+@media(max-width:600px){
+  .topbar{padding:10px 12px}.status{display:none}.app{padding:8px}
+  .main{padding:14px}.round-title{font-size:27px}.big{font-size:48px}
+  .sidebar{grid-template-columns:1fr 1fr}.question-card{padding:16px;min-height:390px}
+  .score{grid-template-columns:1fr 1fr}.brand h1{font-size:16px}.badge{width:39px;height:39px}
+}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="brand">
+    <div class="badge">PD</div>
+    <div><h1>ONESTATE RP • PD NAME THAT TUNE</h1><div class="sub">Event Control • Host Screen</div></div>
+  </div>
+  <div class="status">● EVENT SYSTEM READY</div>
+</div>
+
+<div class="app">
+  <aside class="panel sidebar">
+    <div class="section-title">Rounds</div>
+    <div id="rounds"></div>
+  </aside>
+
+  <main class="panel main">
+    <div class="round-kicker" id="roundKicker"></div>
+    <div class="round-title" id="roundTitle"></div>
+    <p class="round-desc" id="roundDesc"></p>
+    <div class="progress"><div id="progressBar"></div></div>
+
+    <section class="question-card">
+      <div class="qnum" id="qnum"></div>
+      <div class="big">♫</div>
+      <div class="hint" id="hint">Press play when everyone is ready.</div>
+      <div class="timer" id="timer">10</div>
+      <div class="controls">
+        <button class="btn primary" id="playBtn">▶ PLAY 10 SEC CLIP</button>
+        <button class="btn red" id="stopBtn">■ STOP</button>
+        <button class="btn gold" id="revealBtn">REVEAL ANSWER</button>
+      </div>
+      <div class="answer" id="answer">
+        <strong id="songAnswer"></strong>
+        <div id="artistAnswer"></div>
+      </div>
+      <div class="controls">
+        <button class="btn" id="prevBtn">← PREVIOUS</button>
+        <button class="btn" id="nextBtn">NEXT →</button>
+      </div>
+      <div class="clipnote">Clips stream from YouTube. Nothing is downloaded or redistributed by this site.</div>
+    </section>
+  </main>
+
+  <aside class="panel score">
+    <div class="section-title">Team Scoreboard</div>
+    <div id="teams"></div>
+    <div class="rules">
+      <b>Suggested scoring</b><br>
+      Song title = 1 point<br>
+      Artist = 1 point<br>
+      Both = 2 points total<br><br>
+      Use the host screen only — answers are intentionally hidden until reveal.
+    </div>
+  </aside>
+</div>
+
+<div class="footer">Built for a OneState RP police department Name That Tune event.</div>
+<div id="audioBay"></div>
+
+<script>
+const rounds = [
+  {
+    name:"Round 1 — Patrol Classics",
+    short:"Patrol Classics",
+    desc:"Big, recognisable songs to get everyone warmed up.",
+    questions:[
+      {song:"Don't Stop Me Now",artist:"Queen",video:"HgzGwKwLmgM",start:0},
+      {song:"Never Gonna Give You Up",artist:"Rick Astley",video:"dQw4w9WgXcQ",start:0},
+      {song:"Take On Me",artist:"a-ha",video:"djV11Xbc914",start:17},
+      {song:"Dancing Queen",artist:"ABBA",video:"xFrGuyw1V8sm",start:12},
+      {song:"Livin' on a Prayer",artist:"Bon Jovi",video:"lDK9QqIzhwk",start:17}
+    ]
+  },
+  {
+    name:"Round 2 — 2000s Dispatch",
+    short:"2000s Dispatch",
+    desc:"Millennial radio anthems. Song and artist for full points.",
+    questions:[
+      {song:"Mr. Brightside",artist:"The Killers",video:"gGdGFtwCNBE",start:0},
+      {song:"Toxic",artist:"Britney Spears",video:"LOZuxwVk7TU",start:0},
+      {song:"Poker Face",artist:"Lady Gaga",video:"bESGLojNYSo",start:8},
+      {song:"I Want It That Way",artist:"Backstreet Boys",video:"4fndeDfaWCg",start:10},
+      {song:"Crazy in Love",artist:"Beyoncé feat. Jay-Z",video:"ViwtNLUqkMY",start:12}
+    ]
+  },
+  {
+    name:"Round 3 — Modern Response",
+    short:"Modern Response",
+    desc:"Newer chart monsters — faster recognition, less thinking time.",
+    questions:[
+      {song:"Uptown Funk",artist:"Mark Ronson feat. Bruno Mars",video:"OPf0YbXqDm0",start:15},
+      {song:"Blinding Lights",artist:"The Weeknd",video:"4NRXx6U8ABQ",start:20},
+      {song:"Shape of You",artist:"Ed Sheeran",video:"JGwWNGJdvx8",start:8},
+      {song:"Flowers",artist:"Miley Cyrus",video:"G7KNmW9a75Y",start:18},
+      {song:"Shake It Off",artist:"Taylor Swift",video:"nfWlot6h_JM",start:20}
+    ]
+  },
+  {
+    name:"Round 4 — Code Red",
+    short:"Code Red",
+    desc:"Harder alternative/rock tracks for the final showdown.",
+    questions:[
+      {song:"I Bet You Look Good on the Dancefloor",artist:"Arctic Monkeys",video:"pK7egZaT3hs",start:0},
+      {song:"Africa",artist:"Toto",video:"FTQbiNvZ_p7E",start:9},
+      {song:"Wonderwall",artist:"Oasis",video:"bx1Bh8ZvH84",start:0},
+      {song:"Bring Me to Life",artist:"Evanescence",video:"3YxaaGgTQYM",start:8},
+      {song:"Feel Good Inc.",artist:"Gorillaz",video:"HyHNuVaZJ-k",start:8}
+    ]
+  }
+];
+
+let r=0,q=0,timerInt=null,stopTimer=null;
+const $=id=>document.getElementById(id);
+
+function renderRounds(){
+  $("rounds").innerHTML = rounds.map((x,i)=>`
+    <button class="roundBtn ${i===r?'active':''}" onclick="goRound(${i})">
+      ${x.short}<small>${x.questions.length} songs</small>
+    </button>`).join("");
+}
+function render(){
+  stopClip();
+  const R=rounds[r], Q=R.questions[q];
+  $("roundKicker").textContent=`ROUND ${r+1} OF ${rounds.length}`;
+  $("roundTitle").textContent=R.name;
+  $("roundDesc").textContent=R.desc;
+  $("qnum").textContent=`TRACK ${q+1} OF ${R.questions.length}`;
+  $("hint").textContent="Press play when everyone is ready. Players should name the song and artist.";
+  $("timer").textContent="10";
+  $("timer").classList.remove("playing");
+  $("answer").classList.remove("show");
+  $("songAnswer").textContent=Q.song;
+  $("artistAnswer").textContent=Q.artist;
+  $("progressBar").style.width=((q+1)/R.questions.length*100)+"%";
+  $("prevBtn").disabled=(r===0&&q===0);
+  $("nextBtn").textContent=(r===rounds.length-1&&q===R.questions.length-1)?"FINISH":"NEXT →";
+  renderRounds();
+}
+function goRound(i){r=i;q=0;render()}
+function playClip(){
+  stopClip();
+  const Q=rounds[r].questions[q];
+  $("audioBay").innerHTML=`<iframe width="1" height="1"
+    src="https://www.youtube-nocookie.com/embed/${Q.video}?autoplay=1&start=${Q.start}&controls=0&rel=0"
+    allow="autoplay; encrypted-media"></iframe>`;
+  let n=10;
+  $("timer").textContent=n;
+  $("timer").classList.add("playing");
+  timerInt=setInterval(()=>{
+    n--;
+    $("timer").textContent=n;
+    if(n<=0) stopClip();
+  },1000);
+  stopTimer=setTimeout(stopClip,10100);
+}
+function stopClip(){
+  if(timerInt) clearInterval(timerInt);
+  if(stopTimer) clearTimeout(stopTimer);
+  timerInt=stopTimer=null;
+  $("audioBay").innerHTML="";
+  $("timer").classList.remove("playing");
+}
+$("playBtn").onclick=playClip;
+$("stopBtn").onclick=stopClip;
+$("revealBtn").onclick=()=>$("answer").classList.toggle("show");
+$("prevBtn").onclick=()=>{
+  if(q>0) q--;
+  else if(r>0){r--;q=rounds[r].questions.length-1}
+  render();
+};
+$("nextBtn").onclick=()=>{
+  if(q<rounds[r].questions.length-1) q++;
+  else if(r<rounds.length-1){r++;q=0}
+  else {alert("Event complete! Final scores are on the right."); return}
+  render();
+};
+
+const teamState=[0,0,0,0];
+function renderTeams(){
+  $("teams").innerHTML=teamState.map((pts,i)=>`
+    <div class="team">
+      <div class="teamName"><input value="Team ${i+1}" aria-label="Team ${i+1} name"></div>
+      <div class="points" id="pts${i}">${pts}</div>
+      <div class="scoreBtns">
+        <button onclick="score(${i},-1)">−1</button>
+        <button onclick="score(${i},1)">+1</button>
+        <button onclick="score(${i},2)">+2</button>
+      </div>
+    </div>`).join("");
+}
+function score(i,n){teamState[i]=Math.max(0,teamState[i]+n);$("pts"+i).textContent=teamState[i]}
+renderTeams(); render();
+</script>
+</body>
+</html>
