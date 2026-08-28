@@ -1,17 +1,25 @@
-OneState RP - PD Name That Tune
+ONESTATE RP — PD NAME THAT TUNE
+EVENT-READY LOCAL AUDIO VERSION
 
-1. Open index.html in Chrome/Edge to test it.
-2. Upload index.html to a GitHub repository if you want it online.
-3. Enable sound and allow YouTube playback in the browser.
-4. Use this only on the host/stream screen because the Reveal Answer button shows answers.
+Everything is already organised:
+• 5 rounds
+• 5 songs per round
+• 25 songs total
+• Local audio — no YouTube ads
+• 10-second clips
+• Reveal answer
+• Four-team scoreboard
 
-Included:
-- 4 rounds / 20 songs
-- 10-second YouTube-streamed clips
-- Stop/replay
-- Answer reveal
-- Previous/next
-- Four-team editable scoreboard
-- Responsive PD-themed layout
+ROUNDS
+1. Patrol Classics
+2. 2000s Dispatch
+3. Modern Response
+4. R&B Unit
+5. Bassline Pursuit
 
-Note: The site does not contain or redistribute music files. It streams embedded YouTube content.
+HOW TO RUN
+Keep index.html and the music folder together.
+Open index.html in Chrome or Edge.
+Do not move or rename the numbered files in the music folder.
+
+The clip start points are pre-set in index.html.
