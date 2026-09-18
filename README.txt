@@ -1,16 +1,12 @@
-OneState RP PD — Name That Tune Rerun
+FINISH THE LYRIC — HAND-PICKED FINALE
 
-MAIN GAME
-5 rounds × 5 songs. 10-second Name That Tune clips.
+This version replaces the percentage/random finale cuts.
 
-FINAL — FINISH THE LYRIC
-The song title and artist are deliberately shown before playback.
-Press PLAY. The 14-second setup clip ends abruptly.
-The winning team must sing/say what comes immediately next.
-Use CORRECT or WRONG to track the final.
-Suggested target: 4/5.
+Each of the five finale clips is built around a deliberately selected vocal section.
+The question clip is 12 seconds long.
+When it ends, the contestant continues the lyric.
+PLAY THE REAL CONTINUATION starts from the exact same source timestamp where the question ended and plays the next 7 seconds.
 
-No Shuffle round.
+That means the answer audio physically continues the question audio — no guessed/mismatched text answer.
 
-Upload index.html and the entire music folder to GitHub Pages.
-Only publish audio where you have the necessary rights/permission.
+Main 25-song game is unchanged. No Shuffle.
